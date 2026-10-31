@@ -2,9 +2,10 @@ extends Node2D
 
 const COLLISION_MASK_CARD = 1
 
-var card_being_dragged
-var screen_size
+var card_being_dragged : Area2D
+var screen_size : Vector2
 var offset = Vector2(0,0)
+var is_hovering_on_card : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,10 +24,59 @@ func _input(event):
 			# raycast check for card
 			var card = raycast_check_for_card()
 			if card:
-				card_being_dragged = card
+				start_drag(card)
 				offset = get_global_mouse_position() - card.position
 		else:
-			card_being_dragged = null
+			finish_drag()
+			
+			
+func start_drag(card):
+	card_being_dragged = card
+	card.scale = Vector2(1, 1)
+	
+func finish_drag():
+	card_being_dragged.scale = Vector2(1.05, 1.05)
+	card_being_dragged = null
+			
+func connect_card_signals(card):
+	card.connect("hovered", on_hovered_over_card)
+	card.connect("hovered_off", on_hovered_off_card)
+	
+func on_hovered_over_card(card):
+	if !is_hovering_on_card:
+		is_hovering_on_card = true
+		highlight_card(card, true)
+	
+func on_hovered_off_card(card):
+	if !card_being_dragged:
+		highlight_card(card, false)
+		# check if user hovered off card staight onto another card
+		var new_card_hovered = raycast_check_for_card()
+		if new_card_hovered:
+			highlight_card(new_card_hovered, true)
+		else:
+			is_hovering_on_card = false
+	
+func highlight_card(card, hovered):
+	if hovered:
+		card.scale = Vector2(1.05, 1.05)
+		card.z_index = 2
+	else:
+		card.scale = Vector2(1, 1)
+		card.z_index = 1
+
+func get_card_with_highest_z_index(cards):
+	# assume the first card passed in has the highest z index
+	var highest_z_card = cards[0].collider
+	var highest_z_index = highest_z_card.z_index
+	
+	# loop through the rest of the cards checking for a higher z index
+	for i in range(1, cards.size()):
+		if cards[i].collider.z_index > highest_z_index:
+			highest_z_card = cards[i].collider
+			highest_z_index = highest_z_card.z_index
+			
+	return highest_z_card
 
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
@@ -36,6 +86,6 @@ func raycast_check_for_card():
 	parameters.collision_mask = COLLISION_MASK_CARD
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
-		return result[0].collider
+		return get_card_with_highest_z_index(result)
 	else:
 		return null
