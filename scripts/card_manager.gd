@@ -1,6 +1,7 @@
 extends Node2D
 
 const COLLISION_MASK_CARD = 1
+const COLLISION_MASK_CARD_SLOT = 2
 
 var card_being_dragged : Area2D
 var screen_size : Vector2
@@ -37,6 +38,12 @@ func start_drag(card):
 	
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
+	var card_slot_found = raycast_check_for_card_slot()
+	if card_slot_found and not card_slot_found.card_in_slot:
+		# card dropped in empty slot
+		card_being_dragged.position = card_slot_found.position
+		card_being_dragged.get_node("CollisionShape2D").disabled = true
+		card_slot_found.card_in_slot = true
 	card_being_dragged = null
 			
 func connect_card_signals(card):
@@ -78,6 +85,18 @@ func get_card_with_highest_z_index(cards):
 			highest_z_index = highest_z_card.z_index
 			
 	return highest_z_card
+
+func raycast_check_for_card_slot():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_CARD_SLOT
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider
+	else:
+		return null
 
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
