@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ccq30qp7uqmu2"]
+
+[ext_resource type="Texture2D" uid="uid://jpj62fdwf0e0" path="res://icon.svg" id="1_8g2q7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31sbn"]
+size = Vector2(128, 248)
+
+[node name="card" type="Area2D" unique_id=559843521]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=570144800]
+shape = SubResource("RectangleShape2D_31sbn")
+
+[node name="card_image" type="Sprite2D" parent="." unique_id=1979416769]
+scale = Vector2(1, 1.9609375)
+texture = ExtResource("1_8g2q7")
