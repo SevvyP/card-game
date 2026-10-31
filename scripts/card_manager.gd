@@ -27,7 +27,8 @@ func _input(event):
 				start_drag(card)
 				offset = get_global_mouse_position() - card.position
 		else:
-			finish_drag()
+			if card_being_dragged:
+				finish_drag()
 			
 			
 func start_drag(card):
