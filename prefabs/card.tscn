@@ -215,6 +215,7 @@ _data = {
 
 [node name="card" type="Area2D" unique_id=559843521]
 script = ExtResource("1_5tooj")
+metadata/_edit_group_ = true
 
 [node name="card_image" type="Sprite2D" parent="." unique_id=1979416769]
 position = Vector2(0, -31.999998)
