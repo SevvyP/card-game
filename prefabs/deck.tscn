@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d0jvhkthbew38"]
 
-[ext_resource type="Texture2D" uid="uid://lj37mn04lvjm" path="res://sprites/deck.png" id="1_3rtpj"]
+[ext_resource type="Texture2D" uid="uid://duc88b7miq6io" path="res://sprites/card_back.png" id="1_3rtpj"]
+[ext_resource type="Texture2D" uid="uid://lj37mn04lvjm" path="res://sprites/deck_slot.png" id="1_br4d6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
 size = Vector2(176, 256)
@@ -8,18 +9,22 @@ size = Vector2(176, 256)
 [node name="deck" type="Area2D" unique_id=740016635]
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294901629]
-z_index = -2
+[node name="deck_slot" type="Sprite2D" parent="." unique_id=2123977229]
+texture = ExtResource("1_br4d6")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=133169271]
+modulate = Color(0, 0, 0, 1)
+offset_left = -8.0
+offset_top = -176.0
+offset_right = 32.0
+offset_bottom = -136.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="card_back" type="Sprite2D" parent="." unique_id=1636799458]
+position = Vector2(-1.9073486e-06, 3.8146973e-06)
+scale = Vector2(1.8333334, 2)
 texture = ExtResource("1_3rtpj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=665446321]
 shape = SubResource("RectangleShape2D_tbgi4")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=133169271]
-modulate = Color(0, 0, 0, 1)
-offset_left = -9.0
-offset_top = -28.0
-offset_right = 31.0
-offset_bottom = 12.0
-scale = Vector2(2, 2)
-text = "0"
