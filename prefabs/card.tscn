@@ -7,6 +7,7 @@
 size = Vector2(128, 248)
 
 [node name="card" type="Area2D" unique_id=559843521]
+position = Vector2(150, 890)
 script = ExtResource("1_5tooj")
 metadata/_edit_group_ = true
 

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://d0jvhkthbew38"]
+
+[ext_resource type="Texture2D" uid="uid://lj37mn04lvjm" path="res://sprites/deck.png" id="1_3rtpj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(176, 256)
+
+[node name="deck" type="Area2D" unique_id=740016635]
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294901629]
+z_index = -2
+texture = ExtResource("1_3rtpj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=665446321]
+shape = SubResource("RectangleShape2D_tbgi4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=133169271]
+modulate = Color(0, 0, 0, 1)
+offset_left = -9.0
+offset_top = -28.0
+offset_right = 31.0
+offset_bottom = 12.0
+scale = Vector2(2, 2)
+text = "0"
