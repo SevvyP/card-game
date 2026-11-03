@@ -2,4 +2,5 @@
 
 GoDot 4.7
 
-Card asset pack: https://cafedraw.itch.io/fantasy-card-assets
+card image size: 480x x 416px
+card size: 512px x 800px

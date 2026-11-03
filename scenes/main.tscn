@@ -19,13 +19,20 @@ script = ExtResource("2_sugp2")
 script = ExtResource("6_tefeu")
 
 [node name="card_slot" parent="." unique_id=937472320 instance=ExtResource("3_sugp2")]
-position = Vector2(400, 192)
+position = Vector2(344.00006, 488)
+scale = Vector2(0.33, 0.33)
 
 [node name="card_slot2" parent="." unique_id=1557605601 instance=ExtResource("3_sugp2")]
-position = Vector2(792, 192)
+position = Vector2(1584, 488)
+scale = Vector2(0.33, 0.33)
+
+[node name="card_slot3" parent="." unique_id=673255924 instance=ExtResource("3_sugp2")]
+position = Vector2(976, 488)
+scale = Vector2(0.33, 0.33)
 
 [node name="deck" parent="." unique_id=740016635 instance=ExtResource("4_jyhfs")]
 position = Vector2(150, 890)
+scale = Vector2(0.45, 0.45)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("5_tbgi4")
