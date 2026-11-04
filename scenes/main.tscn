@@ -53,5 +53,12 @@ collision_mask = 8
 script = ExtResource("8_tipki")
 
 [node name="mana" parent="." unique_id=674718621 instance=ExtResource("10_choun")]
-position = Vector2(80, 640)
-scale = Vector2(2, 2)
+position = Vector2(88, 640)
+
+[node name="Button" type="Button" parent="." unique_id=1138698753]
+offset_left = 96.0
+offset_top = 560.0
+offset_right = 209.0
+offset_bottom = 602.0
+theme_override_font_sizes/font_size = 24
+text = "End Turn"

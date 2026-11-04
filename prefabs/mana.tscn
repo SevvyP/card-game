@@ -67,14 +67,16 @@ metadata/_edit_group_ = true
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1649210628]
 modulate = Color(0, 0, 0, 1)
 offset_right = 144.0
-offset_bottom = 40.0
+offset_bottom = 80.0
+theme_override_font_sizes/normal_font_size = 32
 text = "Mana:"
 
 [node name="mana_count" type="RichTextLabel" parent="." unique_id=2054599583]
 modulate = Color(0, 0, 0, 1)
-offset_left = 56.0
-offset_right = 96.0
-offset_bottom = 40.0
+offset_left = 104.0
+offset_right = 144.0
+offset_bottom = 64.0
+theme_override_font_sizes/normal_font_size = 32
 text = "0"
 
 [node name="flash_animation" type="AnimationPlayer" parent="." unique_id=463838701]

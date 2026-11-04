@@ -5,7 +5,7 @@ const CARD_DRAW_SPEED = 0.2
 const CARD_SPAWN_POSITION = Vector2(150, 900)
 const STARTING_HAND_SIZE = 5
 const DEFAULT_CARD_SCALE = Vector2(0.33, 0.33)
-const HAND_DEALT_TIMER = 0.3
+const HAND_DEALT_TIMER = 0.1
 
 var player_deck = ["Knight", "Archer", "Demon", "Fireball", "Heal", "Gem", "Gem", "Gem", "Gem"]
 var card_database_reference

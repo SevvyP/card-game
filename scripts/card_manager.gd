@@ -93,7 +93,7 @@ func on_hovered_off_card(card):
 			enlarge_hovered_card(card, false)
 			# check if user hovered off card staight onto another card
 			var new_card_hovered = raycast_check_for_card()
-			if new_card_hovered:
+			if new_card_hovered and not card.name == new_card_hovered.name:
 				enlarge_hovered_card(new_card_hovered, true)
 			else:
 				is_hovering_on_card = false

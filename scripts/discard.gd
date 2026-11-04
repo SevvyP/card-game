@@ -7,7 +7,6 @@ var discard_pile = []
 
 func _ready() -> void:
 	player_hand_reference = $"../player_hand"
-	print(collision_mask)
 
 func send_card_to_discard(card, speed):
 	discard_pile.append(card)
