@@ -15,5 +15,4 @@ func send_card_to_discard(card, speed):
 	# move the card to the top of the tree so that it renders over other cards in the pile
 	card.get_parent().move_child(card, -1)
 	player_hand_reference.animate_card_to_position(card, DISCARD_PILE_POSITION, speed)
-
 		

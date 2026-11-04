@@ -13,12 +13,14 @@ var screen_size : Vector2
 var is_hovering_on_card : bool
 var player_hand_reference
 var discard_reference
+var battle_manager_reference
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	player_hand_reference = $"../player_hand"
 	discard_reference = $"../discard"
+	battle_manager_reference = $"../battle_manager"
 	$"../input_manager".connect("left_mouse_button_released", on_left_click_released)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,21 +45,32 @@ func start_drag(card):
 func finish_drag():
 	card_being_dragged.scale = HOVERED_CARD_SCALE
 	var card_slot_found = raycast_check_for_card_slot()
+	
 	if card_slot_found and not card_slot_found.card_in_slot and card_being_dragged.type == "Hero":
-		player_hand_reference.remove_card_from_hand(card_being_dragged)
-		# card dropped in empty slot
-		card_being_dragged.position = card_slot_found.position
-		card_being_dragged.get_node("CollisionShape2D").disabled = true
-		card_slot_found.card_in_slot = true
-		card_being_dragged.scale = SLOTTED_CARD_SCALE
-		card_being_dragged.highlighted = false
-		card_being_dragged.current_card_slot = card_slot_found
-		card_being_dragged.z_index = -1
-		is_hovering_on_card = false
+		if battle_manager_reference.can_play_card(card_being_dragged):
+			battle_manager_reference.play_card(card_being_dragged)
+			player_hand_reference.remove_card_from_hand(card_being_dragged)
+			card_being_dragged.position = card_slot_found.position
+			card_being_dragged.get_node("CollisionShape2D").disabled = true
+			card_slot_found.card_in_slot = true
+			card_being_dragged.scale = SLOTTED_CARD_SCALE
+			card_being_dragged.highlighted = false
+			card_being_dragged.current_card_slot = card_slot_found
+			card_being_dragged.z_index = -1
+			is_hovering_on_card = false
+		else:
+			card_being_dragged.highlighted = false
+			player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 	elif card_being_dragged.position.y < CAST_SPELL_Y_VALUE and not card_being_dragged.type == "Hero":
-		# cast spell
-		discard(card_being_dragged)
+		# cast spell only if enough mana (gems don't have a cost and will pass this)
+		if battle_manager_reference.can_play_card(card_being_dragged):
+			battle_manager_reference.play_card(card_being_dragged)
+			discard(card_being_dragged)
+		else:
+			card_being_dragged.highlighted = false
+			player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 	else:
+		card_being_dragged.highlighted = false
 		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 	card_being_dragged = null
 			
@@ -133,9 +146,9 @@ func raycast_check_for_card():
 		return null
 		
 func discard(card):
+	card_being_dragged.highlighted = false
 	discard_reference.send_card_to_discard(card, DEFAULT_CARD_MOVE_SPEED)
 	card_being_dragged.get_node("CollisionShape2D").disabled = true
-	card_being_dragged.highlighted = false
 	card_being_dragged.current_card_slot = "discard"
 	card_being_dragged.scale = DEFAULT_CARD_SCALE
 	is_hovering_on_card = false
