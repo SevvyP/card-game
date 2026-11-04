@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://d0jvhkthbew38" path="res://prefabs/deck.tscn" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://dr8jf36ye1e7c" path="res://scripts/deck.gd" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://cq1u5i80bo8kn" path="res://scripts/input_manager.gd" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://xwlkpw2d2iyh" path="res://prefabs/discard.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://ccwqbqorpxeio" path="res://scripts/discard.gd" id="8_tipki"]
 
 [node name="main" type="Node2D" unique_id=734653755]
 
@@ -19,20 +21,28 @@ script = ExtResource("2_sugp2")
 script = ExtResource("6_tefeu")
 
 [node name="card_slot" parent="." unique_id=937472320 instance=ExtResource("3_sugp2")]
-position = Vector2(344.00006, 488)
-scale = Vector2(0.33, 0.33)
+position = Vector2(800, 600)
+scale = Vector2(0.25, 0.25)
 
 [node name="card_slot2" parent="." unique_id=1557605601 instance=ExtResource("3_sugp2")]
-position = Vector2(1584, 488)
-scale = Vector2(0.33, 0.33)
+position = Vector2(1112, 600)
+scale = Vector2(0.25, 0.25)
 
 [node name="card_slot3" parent="." unique_id=673255924 instance=ExtResource("3_sugp2")]
-position = Vector2(976, 488)
-scale = Vector2(0.33, 0.33)
+position = Vector2(960, 600)
+scale = Vector2(0.25, 0.25)
 
 [node name="deck" parent="." unique_id=740016635 instance=ExtResource("4_jyhfs")]
 position = Vector2(150, 890)
-scale = Vector2(0.45, 0.45)
+scale = Vector2(0.33, 0.33)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("5_tbgi4")
+
+[node name="discard" parent="." unique_id=855899129 instance=ExtResource("7_o6xl0")]
+z_index = -1
+position = Vector2(1768.0001, 888)
+scale = Vector2(0.33, 0.33)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("8_tipki")

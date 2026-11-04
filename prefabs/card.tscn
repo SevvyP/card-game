@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bi7tla2fxjq6x" path="res://sprites/knight.png" id="2_8m1pn"]
 [ext_resource type="Texture2D" uid="uid://chjc55rtmj82c" path="res://sprites/card_frame_hero_demo.png" id="3_hyht8"]
 [ext_resource type="Texture2D" uid="uid://b4lneag1ihf1w" path="res://sprites/card_back.png" id="5_hdhns"]
+[ext_resource type="Texture2D" uid="uid://bgysgp7leytk3" path="res://sprites/card_frame_highlight.png" id="6_fsik0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhxmq"]
 size = Vector2(512, 800)
@@ -20,7 +21,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3.7500002, 3.3125002)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -242,7 +243,6 @@ metadata/_edit_group_ = true
 
 [node name="card_image" type="Sprite2D" parent="." unique_id=1979416769]
 position = Vector2(0, -96.00001)
-scale = Vector2(3.7500002, 3.3125002)
 texture = ExtResource("2_8m1pn")
 
 [node name="card_frame" type="Sprite2D" parent="." unique_id=115553767]
@@ -293,6 +293,16 @@ offset_bottom = -320.0
 theme_override_font_sizes/normal_font_size = 40
 text = "Name"
 
+[node name="ability" type="RichTextLabel" parent="." unique_id=1240797613]
+modulate = Color(0, 0, 0, 1)
+offset_left = -224.0
+offset_top = 144.0
+offset_right = 224.0
+offset_bottom = 296.0
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "[center]Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.[/center]"
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=573886070]
 shape = SubResource("RectangleShape2D_qhxmq")
 
@@ -303,6 +313,10 @@ libraries/ = SubResource("AnimationLibrary_8m1pn")
 visible = false
 scale = Vector2(0.2, 1)
 texture = ExtResource("5_hdhns")
+
+[node name="card_frame_highlight" type="Sprite2D" parent="." unique_id=988303169]
+modulate = Color(1, 1, 1, 0.7529412)
+texture = ExtResource("6_fsik0")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

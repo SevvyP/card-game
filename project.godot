@@ -13,6 +13,7 @@ config_version=5
 config/name="card game"
 run/main_scene="uid://c2guto54rsgbr"
 config/features=PackedStringArray("4.7", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [display]
@@ -30,3 +31,4 @@ window/vsync/vsync_mode=0
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+viewport/hdr_2d=true

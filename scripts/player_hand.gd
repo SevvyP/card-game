@@ -25,6 +25,7 @@ func update_hand_positions(speed):
 		var card = player_hand[i]
 		card.position_in_hand = new_position
 		animate_card_to_position(card, new_position, speed)
+		
 
 func calculate_card_position(i):
 	var total_width = (player_hand.size() - 1) * CARD_WIDTH
