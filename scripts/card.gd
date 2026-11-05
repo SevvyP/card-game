@@ -6,7 +6,10 @@ signal hovered_off
 var position_in_hand
 var current_card_slot
 var type
-var highlighted : bool
+var highlighted = false
+var attacked_this_turn = false
+var attack
+var health
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

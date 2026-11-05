@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://boo1stmono22n"]
+
+[ext_resource type="Texture2D" uid="uid://dajlariv3mau7" path="res://sprites/enemy_frame.png" id="1_6n8dw"]
+[ext_resource type="Script" uid="uid://c2s6a0y2p2cm0" path="res://scripts/enemy.gd" id="1_cypye"]
+[ext_resource type="Texture2D" uid="uid://f5eqe7ccf65" path="res://sprites/lord_of_wrath.png" id="2_yfjof"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6n8dw"]
+size = Vector2(512, 800)
+
+[node name="enemy" type="Area2D" unique_id=23171540]
+script = ExtResource("1_cypye")
+metadata/_edit_group_ = true
+
+[node name="enemy_image" type="Sprite2D" parent="." unique_id=639333399]
+position = Vector2(0, -120)
+texture = ExtResource("2_yfjof")
+
+[node name="enemy_frame" type="Sprite2D" parent="." unique_id=376601337]
+texture = ExtResource("1_6n8dw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=267140026]
+shape = SubResource("RectangleShape2D_6n8dw")
+
+[node name="name" type="RichTextLabel" parent="." unique_id=2041865320]
+modulate = Color(0, 0, 0, 1)
+offset_left = -232.0
+offset_top = -392.0
+offset_right = 232.0
+offset_bottom = -320.0
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Name"
+
+[node name="health" type="RichTextLabel" parent="." unique_id=1057751247]
+modulate = Color(0, 0, 0, 1)
+offset_left = -64.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 136.0
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "0"
+
+[node name="description" type="RichTextLabel" parent="." unique_id=1470711864]
+modulate = Color(0, 0, 0, 1)
+offset_left = -240.0
+offset_top = 136.0
+offset_right = 240.0
+offset_bottom = 384.0
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

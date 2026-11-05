@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://c2guto54rsgbr"]
+
+[ext_resource type="Script" uid="uid://2ikligx5wwpw" path="res://scripts/card_manager.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://cxw104mlm1212" path="res://scripts/player_hand.gd" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://vghag4v6slk0" path="res://prefabs/card_slot.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://d4amjcwplbnvd" path="res://scripts/battle_manager.gd" id="4_85g3d"]
+[ext_resource type="PackedScene" uid="uid://d0jvhkthbew38" path="res://prefabs/deck.tscn" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://dr8jf36ye1e7c" path="res://scripts/deck.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://cq1u5i80bo8kn" path="res://scripts/input_manager.gd" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://xwlkpw2d2iyh" path="res://prefabs/discard.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://ccwqbqorpxeio" path="res://scripts/discard.gd" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://cgjes8wibeb2i" path="res://prefabs/mana.tscn" id="10_choun"]
+[ext_resource type="PackedScene" uid="uid://boo1stmono22n" path="res://prefabs/enemy.tscn" id="11_ya4ey"]
+
+[node name="main" type="Node2D" unique_id=734653755]
+
+[node name="card_manager" type="Node2D" parent="." unique_id=1701620029]
+script = ExtResource("1_0wfyh")
+
+[node name="player_hand" type="Node2D" parent="." unique_id=1551697649]
+script = ExtResource("2_sugp2")
+
+[node name="input_manager" type="Node2D" parent="." unique_id=1170872293]
+script = ExtResource("6_tefeu")
+
+[node name="battle_manager" type="Node2D" parent="." unique_id=435858087]
+script = ExtResource("4_85g3d")
+
+[node name="card_slot" parent="." unique_id=937472320 instance=ExtResource("3_sugp2")]
+z_index = -2
+position = Vector2(760, 632)
+scale = Vector2(0.25, 0.25)
+
+[node name="card_slot2" parent="." unique_id=1557605601 instance=ExtResource("3_sugp2")]
+z_index = -2
+position = Vector2(1160, 632)
+scale = Vector2(0.25, 0.25)
+
+[node name="card_slot3" parent="." unique_id=673255924 instance=ExtResource("3_sugp2")]
+z_index = -2
+position = Vector2(960, 632)
+scale = Vector2(0.25, 0.25)
+
+[node name="deck" parent="." unique_id=740016635 instance=ExtResource("4_jyhfs")]
+position = Vector2(150, 890)
+scale = Vector2(0.33, 0.33)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("5_tbgi4")
+
+[node name="discard" parent="." unique_id=855899129 instance=ExtResource("7_o6xl0")]
+z_index = -1
+position = Vector2(1768.0001, 888)
+scale = Vector2(0.33, 0.33)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("8_tipki")
+
+[node name="mana" parent="." unique_id=674718621 instance=ExtResource("10_choun")]
+position = Vector2(88, 640)
+
+[node name="Button" type="Button" parent="." unique_id=1138698753]
+offset_left = 96.0
+offset_top = 560.0
+offset_right = 209.0
+offset_bottom = 602.0
+theme_override_font_sizes/font_size = 24
+text = "End Turn"
+
+[node name="enemy" parent="." unique_id=23171540 instance=ExtResource("11_ya4ey")]
+position = Vector2(960, 232)
+scale = Vector2(0.5, 0.5)
+collision_layer = 256
+collision_mask = 256

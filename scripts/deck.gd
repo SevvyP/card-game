@@ -53,7 +53,9 @@ func draw_card():
 	# hero cards
 	if card_database_reference.CARDS[card_drawn][3] == "Hero":
 		new_card.get_node("attack").text = str(card_database_reference.CARDS[card_drawn][0])
+		new_card.attack = card_database_reference.CARDS[card_drawn][0]
 		new_card.get_node("health").text = str(card_database_reference.CARDS[card_drawn][1])
+		new_card.health = card_database_reference.CARDS[card_drawn][1]
 		new_card.get_node("cost").text = str(card_database_reference.CARDS[card_drawn][2])
 		new_card.get_node("card_frame").texture = hero_frame_reference
 		new_card.get_node("ability").visible = false

@@ -32,7 +32,7 @@ func raycast_at_cursor():
 		if result_collision_mask == COLLISION_MASK_CARD:
 			# card click
 			var card_found = result[0].collider
-			if card_found:
+			if card_found and not card_found.current_card_slot:
 				card_manager_reference.start_drag(card_found)
 		elif result_collision_mask == COLLISION_MASK_DECK:
 			# deck click

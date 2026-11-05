@@ -2,6 +2,7 @@ extends Node2D
 
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_CARD_SLOT = 2
+const COLLISION_MASK_ENEMY = 256
 const DEFAULT_CARD_MOVE_SPEED = 0.1
 const DEFAULT_CARD_SCALE = Vector2(0.33, 0.33)
 const HOVERED_CARD_SCALE = Vector2(0.45, 0.45)
@@ -30,7 +31,7 @@ func _process(_delta: float) -> void:
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 		# effect on spell cards to let player know they're being cast
-		var card_slot_found = raycast_check_for_card_slot()
+		var card_slot_found = raycast_check_for_collision(COLLISION_MASK_CARD_SLOT)
 		if card_being_dragged.position.y < CAST_SPELL_Y_VALUE and not card_being_dragged.type == "Hero":
 			card_being_dragged.highlighted = true
 		elif card_slot_found and not card_slot_found.card_in_slot and card_being_dragged.type == "Hero":
@@ -44,14 +45,14 @@ func start_drag(card):
 	
 func finish_drag():
 	card_being_dragged.scale = HOVERED_CARD_SCALE
-	var card_slot_found = raycast_check_for_card_slot()
+	var card_slot_found = raycast_check_for_collision(COLLISION_MASK_CARD_SLOT)
 	
 	if card_slot_found and not card_slot_found.card_in_slot and card_being_dragged.type == "Hero":
 		if battle_manager_reference.can_play_card(card_being_dragged):
 			battle_manager_reference.play_card(card_being_dragged)
 			player_hand_reference.remove_card_from_hand(card_being_dragged)
 			card_being_dragged.position = card_slot_found.position
-			card_being_dragged.get_node("CollisionShape2D").disabled = true
+			#card_being_dragged.get_node("CollisionShape2D").disabled = true
 			card_slot_found.card_in_slot = true
 			card_being_dragged.scale = SLOTTED_CARD_SCALE
 			card_being_dragged.highlighted = false
@@ -81,6 +82,17 @@ func connect_card_signals(card):
 func on_left_click_released():
 	if card_being_dragged:
 		finish_drag()
+		return
+		
+	# select card for attack
+	var card_clicked = raycast_check_for_collision(COLLISION_MASK_CARD)
+	if card_clicked and card_clicked.current_card_slot:
+		battle_manager_reference.toggle_attack_mode(card_clicked)
+		
+	# attack enemy with prepped card
+	var enemy_clicked = raycast_check_for_collision(COLLISION_MASK_ENEMY)
+	if enemy_clicked and enemy_clicked.disable_animation:
+		battle_manager_reference.attack_enemy_with_toggled_card()
 	
 func on_hovered_over_card(card):
 	if !is_hovering_on_card:
@@ -92,7 +104,7 @@ func on_hovered_off_card(card):
 		if !card_being_dragged:
 			enlarge_hovered_card(card, false)
 			# check if user hovered off card staight onto another card
-			var new_card_hovered = raycast_check_for_card()
+			var new_card_hovered = raycast_check_for_collision(COLLISION_MASK_CARD)
 			if new_card_hovered and not card.name == new_card_hovered.name:
 				enlarge_hovered_card(new_card_hovered, true)
 			else:
@@ -121,27 +133,15 @@ func get_card_with_highest_z_index(cards):
 			
 	return highest_z_card
 
-func raycast_check_for_card_slot():
+func raycast_check_for_collision(collision_mask):
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD_SLOT
+	parameters.collision_mask = collision_mask
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider
-	else:
-		return null
-
-func raycast_check_for_card():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return get_card_with_highest_z_index(result)
 	else:
 		return null
 		
@@ -149,6 +149,6 @@ func discard(card):
 	card_being_dragged.highlighted = false
 	discard_reference.send_card_to_discard(card, DEFAULT_CARD_MOVE_SPEED)
 	card_being_dragged.get_node("CollisionShape2D").disabled = true
-	card_being_dragged.current_card_slot = "discard"
+	card_being_dragged.current_card_slot = null
 	card_being_dragged.scale = DEFAULT_CARD_SCALE
 	is_hovering_on_card = false
