@@ -67,6 +67,7 @@ func draw_card():
 		new_card.get_node("card_frame").texture = spell_frame_reference
 		new_card.get_node("attack").visible = false
 		new_card.get_node("health").visible = false
+		new_card.effects = card_database_reference.CARDS[card_drawn][6]
 	
 	# gem cards
 	if card_database_reference.CARDS[card_drawn][3] == "Gem":
@@ -75,6 +76,7 @@ func draw_card():
 		new_card.get_node("attack").visible = false
 		new_card.get_node("health").visible = false
 		new_card.get_node("cost").visible = false
+		new_card.effects = card_database_reference.CARDS[card_drawn][6]
 
 	new_card.position = CARD_SPAWN_POSITION
 	new_card.scale = DEFAULT_CARD_SCALE

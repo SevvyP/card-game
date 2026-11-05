@@ -1,7 +1,7 @@
-extends Node2D
+extends Node
 
 const TOGGLED_CARD_OFFSET = Vector2(30, 30)
-const CARD_ATTACK_POSITION = Vector2(810, 450)
+const CARD_ATTACK_POSITION = Vector2(960, 450)
 
 var current_mana : int
 var card_drawn_this_turn : bool
@@ -22,6 +22,14 @@ func _process(_delta: float) -> void:
 	mana_label_reference = $"../mana"
 	mana_label_reference.get_node("mana_count").text = str(current_mana)
 
+func add_mana(mana):
+	current_mana += mana
+	
+	# future proofing negative mana effects
+	if current_mana < 0:
+		current_mana = 0
+	
+
 func can_play_card(card):
 	if card.get_node("cost").text.to_int() <= current_mana:
 		return true
@@ -31,9 +39,12 @@ func can_play_card(card):
 	
 func play_card(card):
 	current_mana -= card.get_node("cost").text.to_int()
-	if card.type == "Gem":
-		current_mana += 2
-		
+	
+	if card.type != "Hero" and card.effects:
+		for effect in card.effects:
+			var target : Array[Node] = [self]
+			effect.execute(target, {})
+			
 func toggle_attack_mode(card):
 	enemy.disable_animation = not enemy.disable_animation
 	if enemy.disable_animation:
@@ -43,6 +54,11 @@ func toggle_attack_mode(card):
 		card.position += TOGGLED_CARD_OFFSET
 		toggled_card = null
 	
+func take_damage(amount):
+	enemy.health -= amount
+	enemy.get_node("health").text = "[center]" + str(enemy.health) + "[/center]"
+	if enemy.health <= 0:
+		end_game()
 	
 func attack_enemy_with_toggled_card():
 	var tween = get_tree().create_tween()
@@ -50,7 +66,7 @@ func attack_enemy_with_toggled_card():
 	tween.tween_property(toggled_card, "position", CARD_ATTACK_POSITION, 0.1)
 	tween.tween_property(toggled_card, "position",current_pos, 0.2)
 	await tween.finished
-	enemy.health -= toggled_card.attack
+	enemy.take_damage(toggled_card.attack)
 	enemy.get_node("health").text = "[center]" + str(enemy.health) + "[/center]"
 	if enemy.health == 0:
 		end_game()

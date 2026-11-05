@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ManaEffect" format=3]
+
+[ext_resource type="Script" path="res://scripts/mana_effect.gd" id="1_08yc8"]
+
+[resource]
+script = ExtResource("1_08yc8")

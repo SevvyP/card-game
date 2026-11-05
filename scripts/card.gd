@@ -11,6 +11,8 @@ var attacked_this_turn = false
 var attack
 var health
 
+var effects
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# all cards must be a child of card manager or this will error
@@ -29,3 +31,4 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	emit_signal("hovered_off", self)
+	

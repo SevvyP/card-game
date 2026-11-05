@@ -32,3 +32,6 @@ func unread_card():
 	current_tween = get_tree().create_tween()
 	current_tween.tween_property(self, "scale", DEFAULT_CARD_SCALE, 0.1)
 	current_tween.tween_property(self, "position", DEFAULT_POSITION, 0.1)
+	
+func take_damage(damage):
+	health = health - damage

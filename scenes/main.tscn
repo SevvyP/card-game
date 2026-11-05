@@ -23,7 +23,7 @@ script = ExtResource("2_sugp2")
 [node name="input_manager" type="Node2D" parent="." unique_id=1170872293]
 script = ExtResource("6_tefeu")
 
-[node name="battle_manager" type="Node2D" parent="." unique_id=435858087]
+[node name="battle_manager" type="Node" parent="." unique_id=2041306004]
 script = ExtResource("4_85g3d")
 
 [node name="card_slot" parent="." unique_id=937472320 instance=ExtResource("3_sugp2")]
